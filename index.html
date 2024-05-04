@@ -9,7 +9,19 @@
     <link rel='icon' type='image/png' sizes='96x96' href='favicon-96x96.png'>
     <link rel='stylesheet' href='css/common.css'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
-<title>Aptos Victors AR</title>
+    <title>Aptos Victors AR</title>
+    <style>
+      .glb-viewer {
+        width: 100%;
+        height: 400px;
+        margin-bottom: 20px;
+      }
+      @media (max-width: 768px) {
+        .glb-viewer {
+          height: 300px;
+        }
+      }
+    </style>
   </head>
   <body class="bg-gray-900 text-white">
     <header class="bg-gray-800 py-4 px-6 flex items-center justify-between">
@@ -22,24 +34,24 @@
       <div class="mb-8">
         <h2 class="text-xl font-bold mb-2">NFT PASS</h2>
         <p class="text-gray-300">
-        World Surface NFT Pass AR Version
+          World Surface NFT Pass AR Version
         </p>
+      </div>
+      <div class="glb-viewer mb-8">
+        <model-viewer src="media/gltf/victor/victormale.glb" alt="Victor Male" auto-rotate camera-controls ar ar-modes="webxr scene-viewer quick-look" ar-scale="auto" ios-src="media/gltf/victor/victormale.glb"></model-viewer>
       </div>
       <div id="scene-container" class="w-full h-96 bg-gray-800 rounded-lg shadow-lg"></div>
     </main>
-    <!-- <footer class="bg-gray-800 py-4 px-6 text-center">
-      <p class="text-gray-400">&copy; 2023 Aptos Victors. All rights reserved.</p>
-    </footer> -->
-<script type="module">
-  import {WebXRButton} from './js/util/webxr-button.js';
-  import {Scene} from './js/render/scenes/scene.js';
-  import {Renderer, createWebGLContext} from './js/render/core/renderer.js';
-  import {Node} from './js/render/core/node.js';
-  import {Gltf2Node} from './js/render/nodes/gltf2.js';
-  import {DropShadowNode} from './js/render/nodes/drop-shadow.js';
-  import {vec3} from './js/render/math/gl-matrix.js';
-  import {Ray} from './js/render/math/ray.js';
-
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <script type="module">
+      import {WebXRButton} from './js/util/webxr-button.js';
+      import {Scene} from './js/render/scenes/scene.js';
+      import {Renderer, createWebGLContext} from './js/render/core/renderer.js';
+      import {Node} from './js/render/core/node.js';
+      import {Gltf2Node} from './js/render/nodes/gltf2.js';
+      import {DropShadowNode} from './js/render/nodes/drop-shadow.js';
+      import {vec3} from './js/render/math/gl-matrix.js';
+      import {Ray} from './js/render/math/ray.js';
   // XR globals.
   let xrButton = null;
   let xrRefSpace = null;
@@ -172,8 +184,7 @@
         let pose = hitTestResults[0].getPose(xrRefSpace);
         reticle.visible = true;
         reticle.matrix = pose.transform.matrix;
-      }
-    }
+      }    }
 
     scene.startFrame();
 
