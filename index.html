@@ -35,34 +35,69 @@
       }
       .main-content {
         position: absolute;
-        bottom: 1rem;
-        left: 1rem;
+        top: 1rem;
         right: 1rem;
         z-index: 10;
         background: rgba(0, 0, 0, 0.6);
         padding: 1rem;
         border-radius: 10px;
+        max-width: 250px;
       }
       model-viewer {
         width: 100%;
-        height: 100%;
+        height: 95vh;
+      }
+      .ar-button {
+        position: absolute;
+        bottom: 1rem;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 10;
+        padding: 0.75rem 1.5rem;
+        background-color: rgba(0, 0, 0, 0.6);
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 1rem;
+        cursor: pointer;
+      }
+      .animation-controls {
+        position: absolute;
+        bottom: 1rem;
+        right: 1rem;
+        z-index: 10;
+        display: flex;
+        gap: 0.5rem;
+      }
+      .animation-button {
+        padding: 0.5rem 1rem;
+        background-color: rgba(0, 0, 0, 0.6);
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 0.9rem;
+        cursor: pointer;
       }
       @media (max-width: 768px) {
         .header {
           padding: 0.5rem;
         }
         .main-content {
-          bottom: 0.5rem;
+          top: auto;
+          bottom: 4rem;
           left: 0.5rem;
           right: 0.5rem;
           padding: 0.5rem;
+          max-width: none;
         }
       }
     </style>
   </head>
   <body>
     <div class="glb-viewer">
-      <model-viewer src="media/gltf/victor/victormale.glb" alt="Victor Male" auto-rotate camera-controls   ios-src="media/gltf/victor/victormale.glb" skybox-image="media/environments/metaverse.png" environment-image="media/environments/metaverse.png" poster="media/textures/poster.webp" shadow-intensity="1" lighting-mode="stage" ar ar-modes="webxr scene-viewer quick-look"></model-viewer>
+      <model-viewer id="modelViewer" src="media/gltf/victor/victormale.glb" alt="Victor Male" auto-rotate camera-controls ios-src="media/gltf/victor/victormale.glb" skybox-image="media/environments/metaverse.png" environment-image="media/environments/metaverse.png" poster="media/textures/poster.webp" shadow-intensity="1" lighting-mode="stage" ar ar-modes="webxr scene-viewer quick-look" animation-name="Running">
+        <button slot="ar-button" class="ar-button">AR View</button>
+      </model-viewer>
     </div>
     <header class="header">
       <h1 class="text-xl font-bold text-white">
@@ -70,21 +105,37 @@
       </h1>
     </header>
     <main class="main-content">
-      <div class="mb-4">
-        <h2 class="text-lg font-bold mb-2 text-white">NFT PASS</h2>
-        <p class="text-gray-300">
+      <div class="mb-2">
+        <h2 class="text-lg font-bold mb-1 text-white">NFT PASS</h2>
+        <p class="text-gray-300 text-sm">
           Aptos Victors NFT Pass AR Version
         </p>
       </div>
       <div>
-        <h3 class="text-lg font-bold mb-2 text-white">Coming Soon</h3>
-        <ul class="text-gray-300">
+        <h3 class="text-lg font-bold mb-1 text-white">Coming Soon</h3>
+        <ul class="text-gray-300 text-sm">
           <li>- Interactive controls</li>
           <li>- Multiple model variations</li>
           <li>- Enhanced AR experience</li>
         </ul>
       </div>
     </main>
+    <div class="animation-controls">
+      <button id="playButton" class="animation-button">Play</button>
+      <button id="pauseButton" class="animation-button">Pause</button>
+    </div>
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
+    <script>
+      const modelViewer = document.getElementById('modelViewer');
+      const playButton = document.getElementById('playButton');
+      const pauseButton = document.getElementById('pauseButton');
+ playButton.addEventListener('click', () => {
+    modelViewer.play();
+  });
+
+  pauseButton.addEventListener('click', () => {
+    modelViewer.pause();
+  });
+</script>
   </body>
 </html>
